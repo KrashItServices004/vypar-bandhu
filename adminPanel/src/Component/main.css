@@ -1,0 +1,13 @@
+.textarea_design {
+    font-size: 12px;
+    border: 1px solid rgb(205, 223, 255);
+    border-radius: 5px;
+    min-height: 150px !important;
+}
+
+.all_div_step2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 150px;
+}
