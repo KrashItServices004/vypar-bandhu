@@ -38,9 +38,11 @@ const Service = () => {
     const [Details, setDetails] = useState('');
     const [selectServicedata, setSelectServiceData] = useState()
 
+    console.log(process.env.REACT_APP_PORT,'process.env.REACT_APP_PORT')
+
     const getList = async () => {
         try {
-            const response = await fetch('http://localhost:5000/admin/service/list');
+            const response = await fetch(`${process.env.REACT_APP_PORT}/admin/service/list`);
             const data = await response.json();
             if (response.status === 200) {
                 setServiceList(data)
@@ -55,7 +57,7 @@ const Service = () => {
 
     const getData = async () => {
         try {
-            const response = await fetch('http://localhost:5000/admin/category/alldata');
+            const response = await fetch(`${process.env.REACT_APP_PORT}/admin/category/alldata`)
             const data = await response.json();
             if (response.status === 200) {
                 setAllData(data)
@@ -75,7 +77,7 @@ const Service = () => {
 
     const getById = async (dataId) => {
         try {
-            let url = "http://localhost:5000/admin/service/getbyid";
+            let url = `${process.env.REACT_APP_PORT}/admin/service/getbyid`
 
             const response = await fetch(url, {
                 method: "POST",
@@ -100,7 +102,7 @@ const Service = () => {
 
     const DeleteData = async (dataId) => {
         console.log(dataId);
-        let url = "http://localhost:5000/admin/service/delete";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/delete`
         try {
             const response = await fetch(url, {
                 method: "POST",
@@ -124,7 +126,7 @@ const Service = () => {
     const CreateService = async () => {
         console.log(category, subCategoryValue, innerCategory, bgImg, heading, Details)
         if (category && subCategoryValue && innerCategory && bgImg && heading) {
-            let url = "http://localhost:5000/admin/service/create";
+            let url = `${process.env.REACT_APP_PORT}/admin/service/create`
 
             const myForm = new FormData();
             myForm.append('file', bgImg)

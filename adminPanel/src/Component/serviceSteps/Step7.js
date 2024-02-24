@@ -31,7 +31,7 @@ const Step7 = ({ setActiveTab, selectServicedata, getById }) => {
 
 
     const DeleteAttribute = async (innerId) => {
-        let url = "http://localhost:5000/admin/service/deleteLink";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/deleteLink`
         try {
             const response = await fetch(url, {
                 method: "POST",
@@ -50,7 +50,7 @@ const Step7 = ({ setActiveTab, selectServicedata, getById }) => {
     };
 
     const AddAttribute = async () => {
-        let url = "http://localhost:5000/admin/service/AddLink";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/AddLink`
 
         try {
             const response = await fetch(url, {
@@ -72,7 +72,7 @@ const Step7 = ({ setActiveTab, selectServicedata, getById }) => {
 
 
     const SaveAttribute = async (item) => {
-        let url = "http://localhost:5000/admin/service/updateLink";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/updateLink`
 
         console.log(item)
         try {

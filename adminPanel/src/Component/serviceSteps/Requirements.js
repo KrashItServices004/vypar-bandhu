@@ -24,7 +24,7 @@ const Requirements = ({ setActiveTab, selectServicedata, getById }) => {
 
 
     const AddAttribute = async (innerId) => {
-        let url = "http://localhost:5000/admin/service/addRequirements";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/addRequirements`
         console.log(innerId)
 
         try {
@@ -47,7 +47,7 @@ const Requirements = ({ setActiveTab, selectServicedata, getById }) => {
 
 
     const DeleteAttribute = async (type, id, innerId) => {
-        let url = "http://localhost:5000/admin/service/deleteRequirements";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/deleteRequirements`
         console.log(id, id)
         try {
             const response = await fetch(url, {
@@ -70,7 +70,7 @@ const Requirements = ({ setActiveTab, selectServicedata, getById }) => {
     const SaveAttribute = async (item) => {
 
         console.log(item)
-        let url = "http://localhost:5000/admin/service/updateRequirements";
+        let url = "admin/service/updateRequirements";
 
         try {
             const response = await fetch(url, {
@@ -118,7 +118,7 @@ const Requirements = ({ setActiveTab, selectServicedata, getById }) => {
 
 
     const SaveQuestions = async (item, innerId) => {
-        let url = "http://localhost:5000/admin/service/updateRequirementsName";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/updateRequirementsName`
         try {
             const response = await fetch(url, {
                 method: "POST",

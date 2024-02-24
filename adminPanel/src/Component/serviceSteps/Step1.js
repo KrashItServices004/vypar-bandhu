@@ -13,7 +13,7 @@ const Step1 = ({ setActiveTab, selectServicedata, getById }) => {
     }, [selectServicedata])
 
     const SaveData = async () => {
-        let url = "http://localhost:5000/admin/service/updateStep1";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/updateStep1`
         console.log(heading)
 
         const myForm = new FormData();
@@ -69,7 +69,7 @@ const Step1 = ({ setActiveTab, selectServicedata, getById }) => {
                     <label for='inputNumber' className='col-sm-2 col-form-label'></label>
                     <div className='col-sm-10'>
 
-                        <img src={`http://localhost:5000/admin/service/file/${selectServicedata && selectServicedata.images}`} style={{ width: "300px" }} alt="" />
+                        <img src={`${process.env.REACT_APP_PORT}/admin/service/file/${selectServicedata && selectServicedata.images}`} style={{ width: "300px" }} alt="" />
                     </div>
                 </div>
             }

@@ -11,7 +11,7 @@ const Step2 = ({ setActiveTab, selectServicedata, getById }) => {
     }, [selectServicedata.stepTwoData])
 
     const handleDelete = async (id) => {
-        let url = "http://localhost:5000/admin/service/deletestep2";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/deletestep2`
         console.log(id, id)
         try {
             const response = await fetch(url, {
@@ -44,7 +44,7 @@ const Step2 = ({ setActiveTab, selectServicedata, getById }) => {
 
 
     const AddAttributes = async (type) => {
-        let url = "http://localhost:5000/admin/service/updateStep2";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/updateStep2`
 
         try {
             const response = await fetch(url, {
@@ -62,10 +62,7 @@ const Step2 = ({ setActiveTab, selectServicedata, getById }) => {
 
     const SaveAttributeData = async (item) => {
 
-        console.log(item.icon)
-        console.log(item.name)
-        console.log(item.icon)
-        let url = "http://localhost:5000/admin/service/updateStep2";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/updateStep2`
 
         const myForm = new FormData();
         myForm.append('file', item.icon)
@@ -137,7 +134,7 @@ const Step2 = ({ setActiveTab, selectServicedata, getById }) => {
                                                 <div className="col-12">
                                                     {/* <input type='file' placeholder='Name' className='form-control' /> */}
 
-                                                    <img src={`http://localhost:5000/admin/service/file/${item.icon && item.icon}`} style={{ width: "120px" }} className="mb-1" alt="No Previous Image" />
+                                                    <img src={`${process.env.REACT_APP_PORT}/admin/service/file/${item.icon && item.icon}`} style={{ width: "120px" }} className="mb-1" alt="No Previous Image" />
 
 
                                                     <input type='file' placeholder='Icon' className='form-control' onChange={(e) => {

@@ -11,7 +11,7 @@ const Step4 = ({ setActiveTab, selectServicedata, getById }) => {
 
 
     const AddSection = async () => {
-        let url = "http://localhost:5000/admin/service/addstep4";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/addstep4`
 
         try {
             const response = await fetch(url, {
@@ -31,7 +31,7 @@ const Step4 = ({ setActiveTab, selectServicedata, getById }) => {
         }
     }
     const AddAttribute = async (innerId) => {
-        let url = "http://localhost:5000/admin/service/addstep4Attribute";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/addstep4Attribute`
 
         try {
             const response = await fetch(url, {
@@ -51,7 +51,7 @@ const Step4 = ({ setActiveTab, selectServicedata, getById }) => {
         }
     }
     const DeleteSection = async (innerCategoryid) => {
-        let url = "http://localhost:5000/admin/service/deletestep4section";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/deletestep4section`
 
         try {
             const response = await fetch(url, {
@@ -71,7 +71,7 @@ const Step4 = ({ setActiveTab, selectServicedata, getById }) => {
         }
     }
     const handleDelete = async (innerId, innerCategoryid) => {
-        let url = "http://localhost:5000/admin/service/deletestep4Attribute";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/deletestep4Attribute`
 
         try {
             const response = await fetch(url, {
@@ -93,7 +93,7 @@ const Step4 = ({ setActiveTab, selectServicedata, getById }) => {
 
 
     const SaveHeadingData = async (sectionData) => {
-        let url = "http://localhost:5000/admin/service/updateStep4Heading";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/updateStep4Heading`
         console.log(sectionData)
 
         try {
@@ -145,7 +145,7 @@ const Step4 = ({ setActiveTab, selectServicedata, getById }) => {
     };
 
     const saveImagesApi = async (innerId, item) => {
-        let url = "http://localhost:5000/admin/service/updateStep4Images";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/updateStep4Images`
 
         const myForm = new FormData();
         myForm.append('file', item.filename)
@@ -224,7 +224,7 @@ const Step4 = ({ setActiveTab, selectServicedata, getById }) => {
                                             <tr key={index}>
                                                 <td>
                                                     <div className="col-12 ">
-                                                        <img src={`http://localhost:5000/admin/service/file/${item.filename && item.filename}`} style={{ width: "120px" }} className="mb-1" alt="No Previous Image" />
+                                                        <img src={`${process.env.REACT_APP_PORT}/admin/service/file/${item.filename && item.filename}`} style={{ width: "120px" }} className="mb-1" alt="No Previous Image" />
 
                                                         <input type='file' placeholder='Icon' className='form-control' onChange={(e) => {
                                                             const updatedQuestion = { ...item, filename: e.target.files[0] };

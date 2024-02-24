@@ -40,7 +40,7 @@ const Step5 = ({ setActiveTab, selectServicedata, getById }) => {
     console.log(data)
     const getList = async () => {
         try {
-            const response = await fetch('http://localhost:5000/admin/documentlist/list');
+            const response = await fetch(`${process.env.REACT_APP_PORT}/admin/documentlist/list`);
             const data = await response.json();
             if (response.status === 200) {
                 setDocumentList(data)
@@ -61,7 +61,7 @@ const Step5 = ({ setActiveTab, selectServicedata, getById }) => {
 
 
     const DeleteAttribute = async (innerId, innerCategoryid) => {
-        let url = "http://localhost:5000/admin/service/deleteDocument";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/deleteDocument`
         try {
             const response = await fetch(url, {
                 method: "POST",
@@ -80,7 +80,7 @@ const Step5 = ({ setActiveTab, selectServicedata, getById }) => {
     };
 
     const AddAttribute = async () => {
-        let url = "http://localhost:5000/admin/service/AddDocumentStep5";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/AddDocumentStep5`
 
         try {
             const response = await fetch(url, {
@@ -103,7 +103,7 @@ const Step5 = ({ setActiveTab, selectServicedata, getById }) => {
 
   
     const SaveAllData = async (innerId, item) => {
-        let url = "http://localhost:5000/admin/service/updateDocument";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/updateDocument`
 
         try {
             const response = await fetch(url, {
@@ -137,7 +137,7 @@ const Step5 = ({ setActiveTab, selectServicedata, getById }) => {
 
 
     const SaveHeading = async (innerId, item) => {
-        let url = "http://localhost:5000/admin/service/updateDocumentHeading";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/updateDocumentHeading`
         console.log(innerId, item)
         try {
             const response = await fetch(url, {
@@ -227,7 +227,7 @@ const Step5 = ({ setActiveTab, selectServicedata, getById }) => {
 
                                                                 <div className="col-12">
                                                                     {/* <input type='file' placeholder='Name' className='form-control' /> */}
-                                                                    <img src={`http://localhost:5000/admin/service/file/${item.icon && item.icon}`} style={{ width: "120px" }} className="mb-1" alt="No Image" />
+                                                                    <img src={`${process.env.REACT_APP_PORT}/admin/service/file/${item.icon && item.icon}`} style={{ width: "120px" }} className="mb-1" alt="No Image" />
 
                                                                 </div>
                                                             </div>

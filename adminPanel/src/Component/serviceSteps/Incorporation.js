@@ -19,7 +19,7 @@ const Incorporation = ({ setActiveTab, selectServicedata, getById }) => {
 
 
     const AddAttribute = async (innerId) => {
-        let url = "http://localhost:5000/admin/service/addincorporation";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/addincorporation`
         console.log(innerId)
 
         try {
@@ -42,7 +42,7 @@ const Incorporation = ({ setActiveTab, selectServicedata, getById }) => {
 
 
     const DeleteAttribute = async (type, id, innerId) => {
-        let url = "http://localhost:5000/admin/service/deleteincorporation";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/deleteincorporation`
         console.log(id, id)
         try {
             const response = await fetch(url, {
@@ -65,7 +65,7 @@ const Incorporation = ({ setActiveTab, selectServicedata, getById }) => {
     const SaveAttribute = async (item) => {
 
         console.log(item)
-        let url = "http://localhost:5000/admin/service/updateincorporation";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/updateincorporation`
 
         try {
             const response = await fetch(url, {
@@ -113,7 +113,7 @@ const Incorporation = ({ setActiveTab, selectServicedata, getById }) => {
 
 
     const SaveQuestions = async (item, innerId) => {
-        let url = "http://localhost:5000/admin/service/updateincorporationsName";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/updateincorporationsName`
         try {
             const response = await fetch(url, {
                 method: "POST",

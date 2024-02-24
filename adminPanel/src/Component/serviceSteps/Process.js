@@ -26,7 +26,7 @@ const Process = ({ setActiveTab, selectServicedata, getById }) => {
 
 
     const AddAttribute = async (innerId) => {
-        let url = "http://localhost:5000/admin/service/addprocess";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/addprocess`
         console.log(innerId)
 
         try {
@@ -49,7 +49,7 @@ const Process = ({ setActiveTab, selectServicedata, getById }) => {
 
 
     const DeleteAttribute = async (type, id, innerId) => {
-        let url = "http://localhost:5000/admin/service/deleteprocess";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/deleteprocess`
         console.log(id, id)
         try {
             const response = await fetch(url, {
@@ -72,7 +72,7 @@ const Process = ({ setActiveTab, selectServicedata, getById }) => {
     const SaveAttribute = async (item) => {
 
         console.log(item)
-        let url = "http://localhost:5000/admin/service/updateprocess";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/updateprocess`
 
         try {
             const response = await fetch(url, {
@@ -121,7 +121,7 @@ const Process = ({ setActiveTab, selectServicedata, getById }) => {
 
 
     const SaveQuestions = async (item, innerId) => {
-        let url = "http://localhost:5000/admin/service/updateprocessStep";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/updateprocessStep`
         try {
             const response = await fetch(url, {
                 method: "POST",

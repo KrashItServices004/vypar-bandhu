@@ -19,7 +19,7 @@ const Step3 = ({ setActiveTab, selectServicedata, getById }) => {
 
 
     const AddSection = async (type) => {
-        let url = "http://localhost:5000/admin/service/updateStep3";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/updateStep3`
 
         try {
             const response = await fetch(url, {
@@ -38,7 +38,7 @@ const Step3 = ({ setActiveTab, selectServicedata, getById }) => {
     }
 
     const AddAttribute = async (type, innerId) => {
-        let url = "http://localhost:5000/admin/service/updateStep3";
+        let url = "${process.env.REACT_APP_PORT}/admin/service/updateStep3";
 
         try {
             const response = await fetch(url, {
@@ -57,7 +57,7 @@ const Step3 = ({ setActiveTab, selectServicedata, getById }) => {
     }
 
     const DeleteSection = async (type, id) => {
-        let url = "http://localhost:5000/admin/service/deletestep3";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/deletestep3`
         console.log(id, id)
         try {
             const response = await fetch(url, {
@@ -76,7 +76,7 @@ const Step3 = ({ setActiveTab, selectServicedata, getById }) => {
     };
 
     const DeleteAttribute = async (type, id, innerId) => {
-        let url = "http://localhost:5000/admin/service/deletestep3";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/deletestep3`
         console.log(id, id)
         try {
             const response = await fetch(url, {
@@ -98,7 +98,7 @@ const Step3 = ({ setActiveTab, selectServicedata, getById }) => {
     const SaveAttribute = async (item) => {
 
         console.log(item)
-        let url = "http://localhost:5000/admin/service/updateStep3Heading";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/updateStep3Heading`
 
         const myForm = new FormData();
         myForm.append('file', item.image)
@@ -148,7 +148,7 @@ const Step3 = ({ setActiveTab, selectServicedata, getById }) => {
 
 
     const SaveQuestions = async (item, innerId) => {
-        let url = "http://localhost:5000/admin/service/updateStep3questions";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/updateStep3questions`
         console.log(item, innerId)
         try {
             const response = await fetch(url, {
@@ -222,7 +222,7 @@ const Step3 = ({ setActiveTab, selectServicedata, getById }) => {
                                 </div>
                                 <div className="col-5">
 
-                                    <img src={`http://localhost:5000/admin/service/file/${sectionData.image && sectionData.image}`} style={{ width: "120px" }} className="mb-1" alt="No Previous Image" />
+                                    <img src={`${process.env.REACT_APP_PORT}/admin/service/file/${sectionData.image && sectionData.image}`} style={{ width: "120px" }} className="mb-1" alt="No Previous Image" />
                                 </div>.
 
                             </div>

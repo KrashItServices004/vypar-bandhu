@@ -16,7 +16,7 @@ const Templates = () => {
 
     const getList = async () => {
         try {
-            const response = await fetch('http://localhost:5000/admin/templates/list');
+            const response = await fetch(`${process.env.REACT_APP_PORT}/admin/templates/list`);
             const data = await response.json();
             if (response.status === 200) {
                 setDocumentList(data)
@@ -38,7 +38,7 @@ const Templates = () => {
     const SubmitData = async (event) => {
         event.preventDefault();
         if (file && premium && type && name) {
-            let url = "http://localhost:5000/admin/templates/upload";
+            let url = `${process.env.REACT_APP_PORT}/admin/templates/upload`;
 
             const myForm = new FormData();
             myForm.append('file', file)
@@ -57,7 +57,7 @@ const Templates = () => {
 
     const DeleteData = async (dataId) => {
         console.log(dataId);
-        let url = "http://localhost:5000/admin/templates/delete";
+        let url = `${process.env.REACT_APP_PORT}/admin/templates/delete`
         try {
             const response = await fetch(url, {
                 method: "POST",
@@ -132,7 +132,7 @@ const Templates = () => {
                                                                 <td>{item.name}</td>
                                                                 <td>{item.premium === false ? "No" : "Yes"}</td>
                                                                 <td>{item.type === '1' ? "Resume Templates" : item.type === '2' ? "Cover Letter Templates" : "Cv Letter Templates"}</td>
-                                                                <td><button type="button" class="btn btn-sm btn-primary" onClick={() => { window.open(`http://localhost:5000/file/${item.fileName}`) }}><i class="bi bi-cloud-download"></i> Download</button></td>
+                                                                <td><button type="button" class="btn btn-sm btn-primary" onClick={() => { window.open(`${process.env.REACT_APP_PORT}/file/${item.fileName}`) }}><i class="bi bi-cloud-download"></i> Download</button></td>
                                                                 <td><button type="button" class="btn btn-sm btn-danger" onClick={() => { DeleteData(item._id) }}><i class="bi bi-trash"></i></button></td>
 
 

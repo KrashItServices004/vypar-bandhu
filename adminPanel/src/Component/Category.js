@@ -13,7 +13,7 @@ const Category = () => {
 
     const getList = async () => {
         try {
-            const response = await fetch('http://localhost:5000/admin/category/alldata');
+            const response = await fetch(`${process.env.REACT_APP_PORT}/admin/category/alldata`);
             const data = await response.json();
             if (response.status === 200) {
                 setDocumentList(data)
@@ -36,7 +36,7 @@ const Category = () => {
         if (nameData) {
 
 
-            let url = "http://localhost:5000/admin/category/innercategoriesAdd";
+            let url = `${process.env.REACT_APP_PORT}/admin/category/innercategoriesAdd`;
             try {
                 const response = await fetch(url, {
                     method: "POST",
@@ -62,7 +62,7 @@ const Category = () => {
         if (nameData) {
 
 
-            let url = "http://localhost:5000/admin/category/subcategoriesAdd";
+            let url = `${process.env.REACT_APP_PORT}/admin/category/subcategoriesAdd`;
             try {
                 const response = await fetch(url, {
                     method: "POST",
@@ -87,7 +87,7 @@ const Category = () => {
 
     const DeleteInnerCategory = async (mainCategoryId, subcategoryId, innerCategoryName) => {
 
-        let url = "http://localhost:5000/admin/category/innercategoriesDelete";
+        let url = `${process.env.REACT_APP_PORT}/admin/category/innercategoriesDelete`;
         try {
             const response = await fetch(url, {
                 method: "POST",
@@ -110,7 +110,7 @@ const Category = () => {
 
     const DeleteCategory = async (mainCategoryId, subcategoryId) => {
 
-        let url = "http://localhost:5000/admin/category/subcategoriesDelete";
+        let url = `${process.env.REACT_APP_PORT}/admin/category/subcategoriesDelete`
         try {
             const response = await fetch(url, {
                 method: "POST",

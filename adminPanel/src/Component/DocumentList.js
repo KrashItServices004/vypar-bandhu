@@ -15,7 +15,7 @@ const DocumentList = () => {
 
     const getList = async () => {
         try {
-            const response = await fetch('http://localhost:5000/admin/documentlist/list');
+            const response = await fetch(`${process.env.REACT_APP_PORT}/admin/documentlist/list`);
             const data = await response.json();
             if (response.status === 200) {
 
@@ -37,7 +37,7 @@ const DocumentList = () => {
 
     const SubmitData = async (event) => {
         if (name && image) {
-            let url = "http://localhost:5000/admin/documentlist/create";
+            let url = `${process.env.REACT_APP_PORT}/admin/documentlist/create`
 
             const myForm = new FormData();
             myForm.append('file', image)
@@ -66,7 +66,7 @@ const DocumentList = () => {
 
     const DeleteData = async (dataId) => {
         console.log(dataId);
-        let url = "http://localhost:5000/admin/documentlist/delete";
+        let url = `${process.env.REACT_APP_PORT}/admin/documentlist/delete`
         try {
             const response = await fetch(url, {
                 method: "POST",
@@ -138,7 +138,7 @@ const DocumentList = () => {
                                                             <tr>
 
                                                                 <td>{item.name}</td>
-                                                                <td><img src={`http://localhost:5000/admin/service/file/${item.image && item.image}`} /></td>
+                                                                <td><img src={`${process.env.REACT_APP_PORT}/admin/service/file/${item.image && item.image}`} /></td>
                                                                 <td><button type="button" class="btn btn-sm btn-danger" onClick={() => { DeleteData(item._id) }}><i class="bi bi-trash"></i></button></td>
 
 
