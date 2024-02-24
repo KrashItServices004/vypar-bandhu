@@ -349,7 +349,7 @@ const ServicePage = () => {
                                         <div className="row">
                                             <h1 className="text-center heading_main  mt-4">{data?.heading}</h1>
                                             {
-                                                data?.details[0].name &&
+                                                data?.details?.[0]?.name &&
 
                                                 <div className="row mt-2" >
                                                     <div className=" px-5 py-2 mx-auto" style={{ width: 'auto' }}>
