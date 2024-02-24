@@ -233,9 +233,13 @@ const ServicePage = () => {
                                                                 const className = index % 2 === 0 ? 'bg_color' : 'bg_orange';
                                                                 return (
                                                                     <>
+                                                                    {
+                                                                        SubData.name&&
+
                                                                         <div key={index} className={`card py-3 px-5 ${className} mb-3`}>
                                                                             <label className='text_workflow'><span className={`ps-3 ${className} `}>{SubData.name}</span></label>
                                                                         </div>
+                                                                    }
 
                                                                     </>
                                                                 )
