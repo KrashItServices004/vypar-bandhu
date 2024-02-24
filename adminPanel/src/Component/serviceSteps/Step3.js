@@ -14,7 +14,7 @@ const Step3 = ({ setActiveTab, selectServicedata, getById }) => {
 
 
     const handleNext = () => {
-        setActiveTab('4');
+        setActiveTab('9');
     };
 
 
@@ -210,7 +210,7 @@ const Step3 = ({ setActiveTab, selectServicedata, getById }) => {
                             </div>
                         </div>
                         <div className='row mb-3'>
-                            <label htmlFor='sectionImage' className='col-sm-2 col-form-label'>Image<span style={{ color: "red" }}>*</span></label>
+                            <label htmlFor='sectionImage' className='col-sm-2 col-form-label'>Image</label>
                             <div className='col-sm-10 d-flex align-items-center'>
                                 <div className="col-5">
 

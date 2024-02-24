@@ -168,7 +168,7 @@ const Step5 = ({ setActiveTab, selectServicedata, getById }) => {
                 <div className="d-flex align-items-center">
 
                     <button type='submit' className='btn btn-primary ' onClick={() => {
-                        setActiveTab('6')
+                        setActiveTab('10')
                     }}>Next</button>
                 </div>
             </div>

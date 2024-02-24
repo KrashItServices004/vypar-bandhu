@@ -79,7 +79,7 @@ const Step7 = ({ setActiveTab, selectServicedata, getById }) => {
             const response = await fetch(url, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ mainCategoryid: selectServicedata._id, innerId: item._id, link: item.link })
+                body: JSON.stringify({ mainCategoryid: selectServicedata._id, innerId: item._id, link: item.link, heading: item.heading })
             });
             if (response.status === 200) {
                 toast.success("Save Attribute Sucesfully!")
@@ -115,6 +115,7 @@ const Step7 = ({ setActiveTab, selectServicedata, getById }) => {
                 <thead>
                     <tr>
 
+                        <th scope='col'>Heading</th>
                         <th scope='col'>Link</th>
                         <th scope='col'>Action</th>
                     </tr>
@@ -122,12 +123,23 @@ const Step7 = ({ setActiveTab, selectServicedata, getById }) => {
                 <tbody>
 
                     {
-                        data && data.map((item, index) => {
+                        data && data?.map((item, index) => {
 
                             return (
                                 <>
 
                                     <tr key={index}>
+
+                                        <td className="col-3">
+
+                                            <div className="col-10">
+                                                {/* <input type='text' placeholder='Name' value={item.name} className='form-control' onChange={(e) => { SaveData(e.target.value, item.id) }} /> */}
+                                                <input type='text' placeholder='question' value={item.heading} className='form-control' onChange={(e) => {
+                                                    const updatedItem = { ...item, heading: e.target.value };
+                                                    SaveData(updatedItem);
+                                                }} />
+                                            </div>
+                                        </td>
 
                                         <td className="col-3">
                                             <div className="">
@@ -160,7 +172,7 @@ const Step7 = ({ setActiveTab, selectServicedata, getById }) => {
                     }
 
                     {
-                        data.length === 0  &&
+                        data?.length === 0 &&
                         <tr>
                             <td colSpan={2} className="text-center">No Data</td>
                         </tr>

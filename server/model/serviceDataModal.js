@@ -27,6 +27,14 @@ const yourDataSchema = new Schema({
         }]
     }],
 
+    requirements: [{
+        heading: String,
+        details: [{
+            name: String,
+        }
+        ]
+    }],
+
     // Step 4
     stepFourData: [{
         heading: String,
@@ -45,6 +53,20 @@ const yourDataSchema = new Schema({
             document: String
         }]
     }],
+    process: [{
+        heading: String,
+        processData: [{
+            stepName: String,
+            description: String
+        }]
+    }],
+    incorporation: [{
+        heading: String,
+        details: [{
+            name: String,
+        }
+        ]
+    }],
 
     // Step 6
     stepSixData: [{
@@ -55,7 +77,8 @@ const yourDataSchema = new Schema({
 
     // Step 7
     youtubeLink: [{
-        link: String
+        link: String,
+        heading: String
     }],
     faqData: [{
         question: String,

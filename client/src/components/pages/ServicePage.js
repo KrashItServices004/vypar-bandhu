@@ -55,6 +55,22 @@ const ServicePage = () => {
     const location = useLocation();
     const stateId = location.state;
 
+    function getVideoId(url) {
+        // Regular expression to match YouTube URL patterns
+        const regExp = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+
+        // Try to extract video ID from the URL using regular expression
+        const match = url.match(regExp);
+
+        // If a match is found, return the video ID
+        if (match && match[1]) {
+            return match[1];
+        } else {
+            // If no match is found, return null or handle the error accordingly
+            return null;
+        }
+    }
+
 
 
     const getById = async (id) => {
@@ -129,39 +145,115 @@ const ServicePage = () => {
                             selectServicedata?.stepThreeData?.map((data, index) => {
                                 return (
                                     <>
-                                        <h1 className='text-center heading_main  mt-4'>{data.heading}</h1>
 
-                                        <div className='row'>
+
+                                        <div className='row mt-3'>
                                             {
-                                                data?.image &&
-                                                <div className='col-sm-5  pt-4 text-center'>
-                                                    <img src={`${process.env.REACT_APP_PORT}/admin/service/file/${data.image}`} alt="condition" height="auto" width='100%' />
-                                                </div>
+                                                data?.image && data?.questions?.length > 1 ?
+                                                    <>
+                                                        <h1 className='text-center heading_main  mt-4'>{data.heading}</h1>
+
+
+                                                        <div className='col-sm-5  pt-4 text-center'>
+                                                            <img src={`${process.env.REACT_APP_PORT}/admin/service/file/${data.image}`} alt="condition" height="auto" width='100%' />
+                                                        </div>
+                                                        {
+                                                            data?.questions?.length > 1 && data.questions[0].question &&
+                                                            <div className='col-sm-7 pt-5'>
+                                                                {
+
+                                                                    data.questions.map((question, index) => {
+                                                                        return (
+                                                                            <>
+                                                                                <h3 style={{ color: 'rgb(254, 180, 68)' }}>{index + 1}. <span>{question.question}</span></h3>
+                                                                                <p>{question.description}</p>
+
+                                                                            </>
+                                                                        )
+
+                                                                    })
+                                                                }
+                                                            </div>
+                                                        }
+                                                    </>
+                                                    :
+
+                                                    <>
+                                                        {
+                                                            data.questions[0].question &&
+                                                            <>
+                                                                <h1 className='text-center heading_main  mt-4'>{data.heading}</h1>
+
+                                                                <div className='col-12 pt-4'>
+                                                                    {
+
+                                                                        data.questions.map((question, index) => {
+                                                                            return (
+                                                                                <>
+                                                                                    <h3 style={{ color: 'rgb(254, 180, 68)' }}>{index + 1}. <span>{question.question}</span></h3>
+                                                                                    <p>{question.description}</p>
+
+                                                                                </>
+                                                                            )
+
+                                                                        })
+                                                                    }
+                                                                </div>
+                                                            </>
+
+
+                                                        }
+
+
+                                                    </>
 
                                             }
-                                            {
-                                                data?.questions?.length > 1 &&
-                                                <div className='col-sm-7 pt-5'>
-                                                    {
 
-                                                        data.questions.map((question, index) => {
-                                                            return (
-                                                                <>
-                                                                    <h3 style={{ color: 'rgb(254, 180, 68)' }}>{index + 1}. <span>{question.question}</span></h3>
-                                                                    <p>{question.description}</p>
-
-                                                                </>
-                                                            )
-
-                                                        })
-                                                    }
-                                                </div>
-                                            }
 
                                         </div>
                                     </>
                                 )
 
+                            })
+                        }
+                        {
+                            selectServicedata?.requirements?.map((data, index) => {
+                                console.log(data, 'data')
+                                return (
+                                    <>
+                                        <div className="row">
+                                            <h1 className="text-center heading_main  mt-4">{data?.heading}</h1>
+                                            {
+                                                data?.details[0].name &&
+
+                                                <div className="row mt-2" >
+                                                    <div className=" px-5 py-2 mx-auto" style={{ width: 'auto' }}>
+                                                        {
+                                                            data?.details?.map((SubData, index) => {
+                                                                const className = index % 2 === 0 ? 'bg_color' : 'bg_orange';
+                                                                return (
+                                                                    <>
+                                                                        <div key={index} className={`card py-3 px-5 ${className} mb-3`}>
+                                                                            <label className='text_workflow'><span className={`ps-3 ${className} `}>{SubData.name}</span></label>
+                                                                        </div>
+
+                                                                    </>
+                                                                )
+                                                            })
+                                                        }
+
+
+
+                                                    </div>
+
+
+                                                </div>
+                                            }
+
+                                        </div>
+
+                                    </>
+                                )
                             })
                         }
 
@@ -194,13 +286,158 @@ const ServicePage = () => {
 
                     }
                     {
-                        selectServicedata?.stepSixData.length > 0 &&
+                        selectServicedata?.process?.map((data, index) => {
+                            return (
+                                <>
+
+                                    <div className="container">
+
+                                        <div className='row mt-3'>
+                                            {
+                                                data?.heading && data?.processData?.length > 0 && data?.processData[0]?.stepName &&
+                                                <>
+                                                    <h1 className='text-center heading_main  mt-4'>{data.heading}</h1>
+                                                    {
+                                                        data?.processData?.length > 1 && data?.processData[0]?.description &&
+                                                        <div className='col-12 pt-5'>
+                                                            {
+
+                                                                data?.processData.map((question, index) => {
+                                                                    return (
+                                                                        <>
+                                                                            {
+                                                                                question.stepName && question.description &&
+                                                                                <>
+                                                                                    <h3 style={{ color: 'rgb(254, 180, 68)' }}>{index + 1}. <span>{question.stepName}</span></h3>
+                                                                                    <p>{question.description}</p>
+
+                                                                                </>
+                                                                            }
+
+                                                                        </>
+                                                                    )
+
+                                                                })
+                                                            }
+                                                        </div>
+                                                    }
+                                                </>
+
+
+                                            }
+
+
+                                        </div>
+                                    </div>
+                                </>
+                            )
+
+                        })
+                    }
+
+                    {
+                        selectServicedata?.incorporation?.map((data, index) => {
+                            console.log(data, 'data')
+                            return (
+                                <>
+                                    <div className="container">
+
+                                        <div className="row">
+                                            <h1 className="text-center heading_main  mt-4">{data?.heading}</h1>
+                                            {
+                                                data?.details[0].name &&
+
+                                                <div className="row mt-2" >
+                                                    <div className=" px-5 py-2 mx-auto" style={{ width: 'auto' }}>
+                                                        {
+                                                            data?.details?.map((SubData, index) => {
+                                                                const className = index % 2 === 0 ? 'text_green' : 'text_orange';
+                                                                return (
+                                                                    <>
+                                                                        <div key={index} className={`card py-3 px-5 ${className} mb-3`}>
+                                                                            <label className='text_workflow'><span className={`ps-3 ${className} `}>{index + 1}. {SubData.name}</span></label>
+                                                                        </div>
+
+                                                                    </>
+                                                                )
+                                                            })
+                                                        }
+
+
+
+                                                    </div>
+
+
+                                                </div>
+                                            }
+
+                                        </div>
+                                    </div>
+
+                                </>
+                            )
+                        })
+                    }
+
+                    {
+                        selectServicedata?.youtubeLink.length > 0 &&
+                        <div className="container">
+                            <div className="text-center row">
+                                {selectServicedata?.youtubeLink?.map((link) => {
+                                    return (
+                                        <div key={link._id}>
+                                            {link.heading && <h1 className='d-flex justify-content-center heading_main mt-4'>{link.heading}</h1>}
+                                            {link.link && (
+                                                <div style={{ padding: "20px" }}>
+                                                    <iframe
+                                                        title="YouTube video player"
+                                                        width="100%"
+                                                        height="450"
+                                                        src={`https://www.youtube.com/embed/${getVideoId(link.link)}`}
+                                                        allowFullScreen
+                                                        style={{ borderRadius: "20px" }}
+                                                    ></iframe>
+                                                </div>
+                                            )}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+
+                        </div>
+                    }
+                    {
+                        selectServicedata?.faqData?.length > 0 && selectServicedata?.faqData[0].question &&
+                        <div className="container">
+                            <h1 className='text-center heading_main  mt-4 mb-5'>Frequently Asked Questions (FAQs)</h1>
+                            <div class="accordion" id="accordionExample">
+                                {selectServicedata?.faqData && selectServicedata?.faqData.map((item, index) => {
+                                    const collapseId = `collapse-${index}`;
+                                    const headingId = `heading-${index}`;
+                                    return (
+                                        <div class="accordion-item" key={index}>
+                                            <h2 class="accordion-header" id={headingId}>
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#${collapseId}`} aria-expanded="false" aria-controls={collapseId}>
+                                                    <span style={{ fontSize: "18px", fontWeight: "500" }}>{item.question}</span>
+                                                </button>
+                                            </h2>
+                                            <div id={collapseId} class="accordion-collapse collapse" aria-labelledby={headingId} data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">{item.answer}</div>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    }
+                    {/* {
+                         selectServicedata?.stepSixData[0].amount && selectServicedata?.stepSixData[0].package &&
                         <div className="container">
                             <h1 className=' d-flex  justify-content-center heading_main  mt-4'>Explore Our Company Incorporation Packages</h1>
                             <div className="d-flex row mt-3" style={{ justifyContent: 'space-around' }}>
 
                                 {
-                                    selectServicedata?.stepSixData.map((data, index) => {
+                                    selectServicedata?.stepSixData?.map((data, index) => {
                                         let dataArray = data.description.split(',');
                                         const trimmedArray = dataArray.map(item => item.trim());
                                         return (
@@ -229,7 +466,6 @@ const ServicePage = () => {
 
                                                                 <button className="btn px-5 text-white  " style={{ background: "#198754" }} ><b>Pay Now</b></button>
                                                             </div>
-                                                            {/* <p class="card-text">{data.description}</p> */}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -240,62 +476,62 @@ const ServicePage = () => {
                                 }
                             </div>
                         </div>
-                    }
+                    } */}
+                    {console.log(selectServicedata?.stepSixData?.length > 0 && 'yes', "six")}
                     {
-                        selectServicedata?.youtubeLink.length > 0 &&
-                        <div className="container">
-                            <div className="text-center row">
-                                <h1 className=' d-flex  justify-content-center heading_main  mt-4'>Tutorials</h1>
-                                <div >
+                        selectServicedata?.stepSixData?.length > 0 && selectServicedata?.stepSixData[0].package &&
+                        <>
+                            <div className="container">
+                                <h1 className=' d-flex  justify-content-center heading_main  mt-4'>Explore Our Company Incorporation Packages</h1>
+                                <div className="d-flex row mt-3" style={{ justifyContent: 'space-around' }}>
 
-                                    {selectServicedata?.youtubeLink?.map((link) => {
-                                        return (
-                                            <>
+                                    {
+                                        selectServicedata?.stepSixData?.map((data, index) => {
+                                            let dataArray = data.description.split(',');
+                                            const trimmedArray = dataArray.map(item => item.trim());
+                                            return (
+                                                <>
+                                                    {
+                                                        data?.package && data?.amount ?
 
-                                                <div style={{ padding: "20px" }}>
- 
-                                                    <iframe
-                                                        style={{ borderRadius: "20px" }}
-                                                        width="100%"
-                                                        height="450px"
-                                                        src={link.link}
-                                                        title="W3Schools Free Online Web Tutorials"
-                                                        allowfullscreen
-                                                    ></iframe>
-                                                </div>
+                                                            <div className="col-lg-4 col-sm-6 p-4">
 
+                                                                <div class="card " style={{ borderRadius: "15px" }} >
+                                                                    <div className="card-body text-center bg_orange text-white text_workflow" style={{ borderTopRightRadius: "15px", borderTopLeftRadius: "15px" }}>
+                                                                        <div>{data.package}</div>
+                                                                        <div>₹ {data.amount}</div>
 
-                                            </>
-                                        )
+                                                                    </div>
+                                                                    <div class="card-body">
+                                                                        <ul>
+                                                                            {
+                                                                                trimmedArray?.map((item) => {
+                                                                                    return (
+                                                                                        <>
+                                                                                            <li class="card-text">{item}</li>
+                                                                                        </>
+                                                                                    )
+                                                                                })
+                                                                            }
+                                                                        </ul>
+                                                                        <div className="text-center">
 
-                                    })}
+                                                                            <button className="btn px-5 text-white  " style={{ background: "#198754" }} ><b>Pay Now</b></button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            :
+                                                            ""
+                                                    }
+
+                                                </>
+                                            )
+                                        })
+                                    }
                                 </div>
                             </div>
-                        </div>
-                    }
-                    {
-                        selectServicedata?.faqData.length > 0 &&
-                        <div className="container">
-                            <h1 className='text-center heading_main  mt-4 mb-5'>Frequently Asked Questions (FAQs)</h1>
-                            <div class="accordion" id="accordionExample">
-                                {selectServicedata?.faqData && selectServicedata?.faqData.map((item, index) => {
-                                    const collapseId = `collapse-${index}`; 
-                                    const headingId = `heading-${index}`; 
-                                    return (
-                                        <div class="accordion-item" key={index}>
-                                            <h2 class="accordion-header" id={headingId}>
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#${collapseId}`} aria-expanded="false" aria-controls={collapseId}>
-                                                    <span style={{ fontSize: "18px", fontWeight: "500" }}>{item.question}</span>  
-                                                </button>
-                                            </h2>
-                                            <div id={collapseId} class="accordion-collapse collapse" aria-labelledby={headingId} data-bs-parent="#accordionExample">
-                                                <div class="accordion-body">{item.answer}</div> 
-                                            </div>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        </div>
+                        </>
                     }
                 </div>
             }

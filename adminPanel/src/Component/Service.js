@@ -14,13 +14,16 @@ import Step5 from './serviceSteps/Step5';
 import Step6 from './serviceSteps/Step6';
 import Step7 from './serviceSteps/Step7';
 import Step8 from './serviceSteps/Step8';
+import Requirements from './serviceSteps/Requirements';
+import Process from './serviceSteps/Process';
+import Incorporation from './serviceSteps/Incorporation';
 
 
 const Service = () => {
 
 
     const [open, setOpen] = useState(false)
-    const [tabName, setTabName] = useState([{ id: "1", name: "Heading" }, { id: "2", name: "Section 2" }, { id: "3", name: "Section 3" }, { id: "4", name: "Section 4" }, { id: "5", name: "Documents" }, { id: "6", name: "Packages" }, { id: "7", name: "Link" }, { id: "8", name: "Faq" },])
+    const [tabName, setTabName] = useState([{ id: "1", name: "Heading" }, { id: "2", name: "Section 2" }, { id: "3", name: "Section 3" }, { id: "9", name: "Requirements" }, { id: "4", name: "Section 4" }, { id: "5", name: "Documents" }, { id: "10", name: "Process" }, { id: "11", name: "Incorporation" }, { id: "6", name: "Packages" }, { id: "7", name: "Link" }, { id: "8", name: "Faq" },])
     const [activeTab, setActiveTab] = useState()
     const [serviceList, setServiceList] = useState()
     const [addServiceOpen, setAddServiceOpen] = useState(false)
@@ -439,6 +442,11 @@ const Service = () => {
 
                                 }
                                 {
+                                    activeTab === "9" &&
+                                    <Requirements setActiveTab={setActiveTab} selectServicedata={selectServicedata} getById={getById} />
+
+                                }
+                                {
                                     activeTab === "4" &&
                                     <Step4 setActiveTab={setActiveTab} selectServicedata={selectServicedata} getById={getById} />
 
@@ -449,10 +457,22 @@ const Service = () => {
 
                                 }
                                 {
+                                    activeTab === "10" &&
+                                    <Process setActiveTab={setActiveTab} selectServicedata={selectServicedata} getById={getById} />
+
+                                }
+                                {
+                                    activeTab === "11" &&
+                                    <Incorporation setActiveTab={setActiveTab} selectServicedata={selectServicedata} getById={getById} />
+
+                                }
+                                {
                                     activeTab === "6" &&
                                     <Step6 setActiveTab={setActiveTab} selectServicedata={selectServicedata} getById={getById} />
 
                                 }
+
+
                                 {
                                     activeTab === "7" &&
                                     <Step7 selectServicedata={selectServicedata} getById={getById} setActiveTab={setActiveTab} />

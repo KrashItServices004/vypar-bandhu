@@ -1,7 +1,7 @@
 import PU from "../../images/PU-separator.svg"
-
 const Section2 = ({ data }) => {
     console.log(data, 'section2')
+
     return (
         <>
 
@@ -12,14 +12,16 @@ const Section2 = ({ data }) => {
                     data.description && data.icon ?
                         <>
 
-
-                            <div className='col-sm-8 mt-5'>
-                                <div style={{ fontSize: '20px' }}>
-                                    {data.description}</div>
-
+                            <div className='col-lg-8 mt-5'>
+                                <div style={{ fontSize: '20px', overflowY: 'auto', }}>
+                                    <pre style={{ width: '100%', whiteSpace: 'pre-wrap' , textAlign:'justify' , fontFamily:'inherit' }}>
+                                        {data.description}
+                                    </pre>
+                                </div>
                             </div>
 
-                            <div className='col-sm-4'>
+
+                            <div className='col-lg-4' style={{display:'flex' , justifyContent:"center" , alignItems:'center'}}>
 
                                 <img src={`${process.env.REACT_APP_PORT}/admin/service/file/${data.icon}`} alt="flower" style={{ width: "90%" }} />
                             </div>
@@ -37,7 +39,7 @@ const Section2 = ({ data }) => {
                                     data.icon &&
                                     <>
                                         <div className="col-sm-4"></div>
-                                        <div className='col-sm-4'>
+                                        <div className='col-sm-4'>  
 
                                             <img src={`${process.env.REACT_APP_PORT}/admin/service/file/${data.icon}`} alt="flower" style={{ width: "90%" }} />
                                         </div>

@@ -6,6 +6,7 @@ app.use(cors())
 const multer = require('multer')
 const path = require("path");
 const fs = require('fs');
+const serviceDataModel = require('../model/serviceDataModal');
 const router = express.Router();
 
 
@@ -155,6 +156,14 @@ router.post('/create', upload.single('file'), async (req, res) => {
                         description: ""
                     }]
                 }],
+                requirements: [{
+                    heading: "",
+                    details: [{
+                        name: "",
+                    }
+                    ]
+                }],
+
                 stepFourData: [{
                     heading: "",
                     description: "",
@@ -170,12 +179,26 @@ router.post('/create', upload.single('file'), async (req, res) => {
                         document: ''
                     }]
                 }],
+                process: [{
+                    heading: "",
+                    processData: [{
+                        stepName: "",
+                        description: ""
+                    }]
+                }],
+                incorporation: [{
+                    heading: "",
+                    details: [{
+                        name: "",
+                    }
+                    ]
+                }],
                 stepSixData: [{
                     package: "",
                     amount: "00",
                     description: ""
                 }],
-                youtubeLink: [{ link: "" }],
+                youtubeLink: [{ link: "", heading: "" }],
                 faqData: [{
                     question: "",
                     answer: ""
@@ -209,6 +232,13 @@ router.post('/create', upload.single('file'), async (req, res) => {
                         description: ""
                     }]
                 }],
+                requirements: [{
+                    heading: "",
+                    details: [{
+                        name: "",
+                    }
+                    ]
+                }],
                 stepFourData: [{
                     heading: "",
                     description: "",
@@ -225,13 +255,28 @@ router.post('/create', upload.single('file'), async (req, res) => {
                     }]
                 }],
 
+                process: [{
+                    heading: "",
+                    processData: [{
+                        stepName: "",
+                        description: ""
+                    }]
+                }],
+                incorporation: [{
+                    heading: "",
+                    details: [{
+                        name: "",
+                    }
+                    ]
+                }],
+
                 stepSixData: [{
                     package: "",
                     amount: "",
                     description: ""
                 }],
 
-                youtubeLink: [{ link: "" }],
+                youtubeLink: [{ link: "", heading: "" }],
                 faqData: [{
                     question: "",
                     answer: ""
@@ -1020,7 +1065,8 @@ router.post('/AddLink', async (req, res) => {
     const { mainCategoryid } = req.body
     const document = await serviceDataModal.findById({ _id: mainCategoryid });
     const youtubeLink = {
-        link: ""
+        link: "",
+        heading: ""
     };
     document.youtubeLink.push(youtubeLink);
     await document.save();
@@ -1051,7 +1097,7 @@ router.post('/deleteLink', async (req, res) => {
 })
 
 router.post('/updateLink', upload.single('file'), async (req, res) => {
-    const { mainCategoryid, innerId, link } = req.body;
+    const { mainCategoryid, innerId, link, heading } = req.body;
     try {
         // Find the document by ID
         const doc = await serviceDataModal.findById({ _id: mainCategoryid });
@@ -1067,6 +1113,7 @@ router.post('/updateLink', upload.single('file'), async (req, res) => {
             return res.status(404).json({ message: 'Object not found within stepThreeData' });
         }
         objToUpdate.link = link;
+        objToUpdate.heading = heading;
 
         await doc.save();
 
@@ -1217,5 +1264,383 @@ router.post('/updateFaq', async (req, res) => {
     }
 })
 
+
+router.post('/addRequirements', async (req, res) => {
+    const { mainCategoryid, innerId } = req.body
+    const document = await serviceDataModal.findById({ _id: mainCategoryid });
+    const newStepTwoData = {
+        name: "",
+    };
+
+    // Find the correct object in the stepThreeData array
+    const targetObjectIndex = document.requirements.findIndex(item => item._id.toString() === innerId);
+
+    if (targetObjectIndex !== -1) {
+        // Push the new question object into the questions array of the found object
+        document.requirements[targetObjectIndex].details.push(newStepTwoData);
+
+        // Save the updated document
+        await document.save();
+
+        res.status(200).json({ message: "Attribute added successfully" });
+    } else {
+        res.status(404).json({ message: "Object not found" });
+    }
+
+})
+
+router.post('/deleteRequirements', async (req, res) => {
+    const { mainCategoryid, innerCategoryid, innerId } = req.body;
+
+
+    try {
+        const document = await serviceDataModal.findById({ _id: mainCategoryid });
+        if (!document) {
+            return res.status(404).json({ message: 'Document not found' });
+        }
+
+        const targetObjectIndex = document.requirements.findIndex(item => item._id.toString() === innerId);
+
+        if (targetObjectIndex !== -1) {
+            const updatedQuestions = document.requirements[targetObjectIndex].details.filter(item => item._id.toString() !== innerCategoryid);
+
+            // Update the details array of the found object with the filtered details
+            document.requirements[targetObjectIndex].details = updatedQuestions;
+
+            // Save the updated document
+            await document.save();
+
+            res.status(200).json({ message: 'Question deleted successfully' });
+        } else {
+            res.status(404).json({ message: 'Object not found' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ error: 'Internal server error' });
+    }
+})
+
+router.post('/updateRequirements', async (req, res) => {
+    const { heading, mainCategoryid, innerId } = req.body;
+    try {
+        // Find the document by ID
+        const doc = await serviceDataModal.findById({ _id: mainCategoryid });
+
+        if (!doc) {
+            return res.status(404).json({ message: 'Document not found' });
+        }
+
+        // Find the specific object within stepThreeData array
+        const objToUpdate = doc.requirements.find(obj => obj._id.toString() === innerId);
+
+        if (!objToUpdate) {
+            return res.status(404).json({ message: 'Object not found within stepThreeData' });
+        }
+
+
+
+        objToUpdate.heading = heading;
+
+        await doc.save();
+
+        res.status(200).json({ message: 'Object updated successfully', data: objToUpdate });
+
+
+
+        // Save the updated document
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server Error' });
+    }
+})
+
+
+router.post('/updateRequirementsName', async (req, res) => {
+    const { name, innerId, questionId, mainCategoryid } = req.body;
+
+
+    try {
+        const doc = await serviceDataModel.findById({ _id: mainCategoryid });
+
+        if (!doc) {
+            return res.status(404).json({ message: 'Document not found' });
+        }
+
+        const objToUpdate = doc.requirements.find(obj => obj._id.toString() === innerId);
+
+        if (!objToUpdate) {
+            return res.status(404).json({ message: 'Object not found within requirements' });
+        }
+
+        if (objToUpdate.details && objToUpdate.details.length > 0) {
+            const questionToUpdate = objToUpdate.details.find(q => q._id.toString() === questionId);
+
+            if (!questionToUpdate) {
+                return res.status(404).json({ message: 'Question not found within requirements' });
+            }
+
+            questionToUpdate.name = name;
+        } else {
+            return res.status(404).json({ message: 'No questions found within requirements' });
+        }
+
+        await doc.save();
+
+        res.status(200).json({ message: 'Question updated successfully', data: objToUpdate });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server Error' });
+    }
+})
+
+
+router.post('/addprocess', async (req, res) => {
+    const { mainCategoryid, innerId } = req.body
+    const document = await serviceDataModal.findById({ _id: mainCategoryid });
+    const newStepTwoData = {
+        stepName: "",
+        description: ""
+    };
+
+    // Find the correct object in the stepThreeData array
+    const targetObjectIndex = document.process.findIndex(item => item._id.toString() === innerId);
+
+    if (targetObjectIndex !== -1) {
+        // Push the new question object into the questions array of the found object
+        document.process[targetObjectIndex].processData.push(newStepTwoData);
+
+        // Save the updated document
+        await document.save();
+
+        res.status(200).json({ message: "Attribute added successfully" });
+    } else {
+        res.status(404).json({ message: "Object not found" });
+    }
+
+})
+
+router.post('/deleteprocess', async (req, res) => {
+    const { mainCategoryid, innerCategoryid, innerId } = req.body;
+
+
+    try {
+        const document = await serviceDataModal.findById({ _id: mainCategoryid });
+        if (!document) {
+            return res.status(404).json({ message: 'Document not found' });
+        }
+
+        const targetObjectIndex = document.process.findIndex(item => item._id.toString() === innerId);
+
+        if (targetObjectIndex !== -1) {
+            const updatedQuestions = document.process[targetObjectIndex].processData.filter(item => item._id.toString() !== innerCategoryid);
+            document.process[targetObjectIndex].processData = updatedQuestions;
+            await document.save();
+
+            res.status(200).json({ message: 'Question deleted successfully' });
+        } else {
+            res.status(404).json({ message: 'Object not found' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ error: 'Internal server error' });
+    }
+})
+
+router.post('/updateprocess', async (req, res) => {
+    const { heading, mainCategoryid, innerId } = req.body;
+    try {
+        const doc = await serviceDataModal.findById({ _id: mainCategoryid });
+        if (!doc) {
+            return res.status(404).json({ message: 'Document not found' });
+        }
+        const objToUpdate = doc.process.find(obj => obj._id.toString() === innerId);
+        if (!objToUpdate) {
+            return res.status(404).json({ message: 'Object not found within stepThreeData' });
+        }
+        objToUpdate.heading = heading;
+        await doc.save();
+        res.status(200).json({ message: 'Object updated successfully', data: objToUpdate });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server Error' });
+    }
+})
+
+
+router.post('/updateprocessStep', async (req, res) => {
+    const { stepName, description, innerId, questionId, mainCategoryid } = req.body;
+
+console.log(stepName , description ,'data')
+    try {
+        const doc = await serviceDataModel.findById({ _id: mainCategoryid });
+
+        if (!doc) {
+            return res.status(404).json({ message: 'Document not found' });
+        }
+
+        const objToUpdate = doc.process.find(obj => obj._id.toString() === innerId);
+
+        if (!objToUpdate) {
+            return res.status(404).json({ message: 'Object not found within process' });
+        }
+
+        if (objToUpdate.processData && objToUpdate.processData.length > 0) {
+            const questionToUpdate = objToUpdate.processData.find(q => q._id.toString() === questionId);
+
+            if (!questionToUpdate) {
+                return res.status(404).json({ message: 'Question not found within requirements' });
+            }
+            if (stepName) {
+                questionToUpdate.stepName = stepName;
+
+            }
+            if (description) {
+                questionToUpdate.description = description;
+            }
+
+        } else {
+            return res.status(404).json({ message: 'No questions found within requirements' });
+        }
+
+        await doc.save();
+
+        res.status(200).json({ message: 'Question updated successfully', data: objToUpdate });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server Error' });
+    }
+})
+
+
+
+
+
+router.post('/addincorporation', async (req, res) => {
+    const { mainCategoryid, innerId } = req.body
+    const document = await serviceDataModal.findById({ _id: mainCategoryid });
+    const newStepTwoData = {
+        name: "",
+    };
+
+    // Find the correct object in the stepThreeData array
+    const targetObjectIndex = document.incorporation.findIndex(item => item._id.toString() === innerId);
+
+    if (targetObjectIndex !== -1) {
+        // Push the new question object into the questions array of the found object
+        document.incorporation[targetObjectIndex].details.push(newStepTwoData);
+
+        // Save the updated document
+        await document.save();
+
+        res.status(200).json({ message: "Attribute added successfully" });
+    } else {
+        res.status(404).json({ message: "Object not found" });
+    }
+
+})
+
+router.post('/deleteincorporation', async (req, res) => {
+    const { mainCategoryid, innerCategoryid, innerId } = req.body;
+
+
+    try {
+        const document = await serviceDataModal.findById({ _id: mainCategoryid });
+        if (!document) {
+            return res.status(404).json({ message: 'Document not found' });
+        }
+
+        const targetObjectIndex = document.incorporation.findIndex(item => item._id.toString() === innerId);
+
+        if (targetObjectIndex !== -1) {
+            const updatedQuestions = document.incorporation[targetObjectIndex].details.filter(item => item._id.toString() !== innerCategoryid);
+
+            // Update the details array of the found object with the filtered details
+            document.incorporation[targetObjectIndex].details = updatedQuestions;
+
+            // Save the updated document
+            await document.save();
+
+            res.status(200).json({ message: 'Question deleted successfully' });
+        } else {
+            res.status(404).json({ message: 'Object not found' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ error: 'Internal server error' });
+    }
+})
+
+router.post('/updateincorporation', async (req, res) => {
+    const { heading, mainCategoryid, innerId } = req.body;
+    try {
+        // Find the document by ID
+        const doc = await serviceDataModal.findById({ _id: mainCategoryid });
+
+        if (!doc) {
+            return res.status(404).json({ message: 'Document not found' });
+        }
+
+        // Find the specific object within stepThreeData array
+        const objToUpdate = doc.incorporation.find(obj => obj._id.toString() === innerId);
+
+        if (!objToUpdate) {
+            return res.status(404).json({ message: 'Object not found within stepThreeData' });
+        }
+
+
+
+        objToUpdate.heading = heading;
+
+        await doc.save();
+
+        res.status(200).json({ message: 'Object updated successfully', data: objToUpdate });
+
+
+
+        // Save the updated document
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server Error' });
+    }
+})
+
+
+router.post('/updateincorporationsName', async (req, res) => {
+    const { name, innerId, questionId, mainCategoryid } = req.body;
+
+
+    try {
+        const doc = await serviceDataModel.findById({ _id: mainCategoryid });
+
+        if (!doc) {
+            return res.status(404).json({ message: 'Document not found' });
+        }
+
+        const objToUpdate = doc.incorporation.find(obj => obj._id.toString() === innerId);
+
+        if (!objToUpdate) {
+            return res.status(404).json({ message: 'Object not found within incorporation' });
+        }
+
+        if (objToUpdate.details && objToUpdate.details.length > 0) {
+            const questionToUpdate = objToUpdate.details.find(q => q._id.toString() === questionId);
+
+            if (!questionToUpdate) {
+                return res.status(404).json({ message: 'Question not found within incorporation' });
+            }
+
+            questionToUpdate.name = name;
+        } else {
+            return res.status(404).json({ message: 'No questions found within incorporation' });
+        }
+
+        await doc.save();
+
+        res.status(200).json({ message: 'Question updated successfully', data: objToUpdate });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server Error' });
+    }
+})
 
 module.exports = router

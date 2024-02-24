@@ -15,7 +15,7 @@ const DocumentPage = () => {
     useEffect(() => {
         const getData = async () => {
             try {
-                const response = await fetch(`${process.env.REACT_APP_PORT}/admin/document/list`);
+                const response = await fetch(`${process.env.REACT_APP_PORT}/admin/templates/list`);
                 const result = await response.json();
                 if (response.status === 200) {
                     console.log(result)
@@ -57,8 +57,6 @@ const DocumentPage = () => {
                     Company Documents <br /> & <br /> Free Documents to Download
 
                 </div>
-
-
             </div>
 
             <div className="container text_second">
@@ -72,7 +70,7 @@ const DocumentPage = () => {
                         return (
                             <>
                                 <li className="nav-item">
-                                    <a href='' className={`nav-link  ${activeTab == item.id ? "active_tab text-white" : ""}`} aria-current="page" onClick={() => { setActiveTab(item.id) }}>{item.name}</a>
+                                    <a className={`nav-link  ${activeTab == item.id ? "active_tab text-white" : ""}`} aria-current="page" onClick={() => { setActiveTab(item.id) }}>{item.name}</a>
                                 </li>
                             </>
                         )
@@ -116,7 +114,7 @@ const DocumentPage = () => {
                                                         <div className="border_color text_green btn btn-outline-primary d-flex justify-content-center w_48 button_hover" onClick={() => {
                                                             if (item.premium === false) (
 
-                                                                window.open(`${process.env.REACT_APP_PORT}/admin/document/file/${item.fileName}`)
+                                                                window.open(`${process.env.REACT_APP_PORT}/admin/templates/file/${item.fileName}`)
                                                             )
                                                             else {
                                                                 alert('You need to pay for this')

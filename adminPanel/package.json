@@ -9,7 +9,7 @@
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.3",
     "dotenv": "^16.4.2",
-    "jquery": "^3.6.3",
+    "query": "^3.6.3",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.0",
     "react-dom": "^18.2.0",
