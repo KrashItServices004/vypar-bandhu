@@ -5,7 +5,7 @@ const Step3 = ({ setActiveTab, selectServicedata, getById }) => {
 
     useEffect(() => {
         setData(selectServicedata.stepThreeData)
-    }, [selectServicedata])
+    }, [selectServicedata.stepThreeData])
 
 
 
@@ -38,7 +38,7 @@ const Step3 = ({ setActiveTab, selectServicedata, getById }) => {
     }
 
     const AddAttribute = async (type, innerId) => {
-        let url = "${process.env.REACT_APP_PORT}/admin/service/updateStep3";
+        let url = `${process.env.REACT_APP_PORT}/admin/service/updateStep3`
 
         try {
             const response = await fetch(url, {
@@ -58,7 +58,6 @@ const Step3 = ({ setActiveTab, selectServicedata, getById }) => {
 
     const DeleteSection = async (type, id) => {
         let url = `${process.env.REACT_APP_PORT}/admin/service/deletestep3`
-        console.log(id, id)
         try {
             const response = await fetch(url, {
                 method: "POST",
@@ -77,7 +76,6 @@ const Step3 = ({ setActiveTab, selectServicedata, getById }) => {
 
     const DeleteAttribute = async (type, id, innerId) => {
         let url = `${process.env.REACT_APP_PORT}/admin/service/deletestep3`
-        console.log(id, id)
         try {
             const response = await fetch(url, {
                 method: "POST",
@@ -97,7 +95,6 @@ const Step3 = ({ setActiveTab, selectServicedata, getById }) => {
 
     const SaveAttribute = async (item) => {
 
-        console.log(item)
         let url = `${process.env.REACT_APP_PORT}/admin/service/updateStep3Heading`
 
         const myForm = new FormData();
@@ -167,7 +164,6 @@ const Step3 = ({ setActiveTab, selectServicedata, getById }) => {
     };
 
 
-    console.log(data, 'data')
 
     return (
         <>

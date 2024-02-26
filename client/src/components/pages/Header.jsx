@@ -186,7 +186,7 @@ const Header = () => {
 
                                                                                                     <div className="dropdownList">{mainData.name}</div>
                                                                                                     :
-                                                                                                    <div className='text-center'>No data</div>
+                                                                                                    ""
                                                                                             }
                                                                                             {
                                                                                                 data.subCategoryName === mainData.name &&
